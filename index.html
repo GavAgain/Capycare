@@ -106,6 +106,537 @@
       text-shadow: 1px 2px var(--shadow);
     }
 
+    /* Three buttons across on desktop */
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      max-width: 990px;
+      margin: 43px auto 0;
+    }
+
+    .choice {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      min-height: 185px;
+      padding: 24px 15px;
+      border: 4px solid var(--ink);
+      border-radius: 15px;
+      background: var(--cream);
+      color: var(--ink);
+      box-shadow: 0 8px 0 var(--shadow);
+      font: inherit;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .15s;
+    }
+
+    .choice:hover,
+    .choice:focus-visible {
+      transform: translateY(-5px);
+      background: #fff9e9;
+      box-shadow: 0 13px 0 var(--shadow);
+      outline: 3px dashed var(--ink);
+      outline-offset: 4px;
+    }
+
+    .choice:active {
+      transform: translateY(3px);
+      box-shadow: 0 3px 0 var(--shadow);
+    }
+
+    .choice-icon {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    .choice-icon svg {
+      width: 58px;
+      height: 54px;
+    }
+
+    .choice-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(.6rem, 1.2vw, .82rem);
+      line-height: 1.9;
+      text-align: center;
+    }
+
+    .footer {
+      margin: 44px auto 0;
+      text-align: center;
+      color: #70421d;
+      font-weight: 900;
+    }
+
+    .footer span {
+      color: var(--cream);
+    }
+
+    dialog {
+      width: min(92vw, 480px);
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 0;
+      border: 4px solid var(--ink);
+      border-radius: 16px;
+      background: var(--cream);
+      color: var(--ink);
+      box-shadow: 0 12px 0 rgba(77, 41, 15, .22);
+    }
+
+    dialog::backdrop {
+      background: rgba(65, 36, 16, .45);
+    }
+
+    .modal-content {
+      padding: 25px;
+    }
+
+    .modal-content h2 {
+      margin: 0 0 16px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: .95rem;
+      line-height: 1.9;
+    }
+
+    .modal-content p {
+      font-size: 1rem;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .small-note {
+      margin-top: 18px;
+      color: #80552c;
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    .close-button {
+      display: block;
+      margin-left: auto;
+      padding: 10px 17px;
+      border: 3px solid var(--ink);
+      border-radius: 9px;
+      background: var(--sun-light);
+      color: var(--ink);
+      box-shadow: 0 4px 0 var(--shadow);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .close-button:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--shadow);
+    }
+
+    /* Mobile layout */
+    @media (max-width: 720px) {
+      main {
+        padding: 35px 18px 28px;
+      }
+
+      .brand {
+        padding-top: 65px;
+        margin-bottom: 22px;
+      }
+
+      .mascot {
+        width: 112px;
+        top: -5px;
+        right: 0;
+      }
+
+      h1 {
+        font-size: clamp(1.65rem, 8vw, 3rem);
+        letter-spacing: -.08em;
+      }
+
+      .choices {
+        grid-template-columns: 1fr;
+        max-width: 410px;
+        gap: 17px;
+        margin-top: 30px;
+      }
+
+      .choice {
+        min-height: 120px;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 18px;
+        padding: 18px 22px;
+      }
+
+      .choice-icon {
+        flex: 0 0 60px;
+      }
+
+      .choice-label {
+        font-size: .7rem;
+        text-align: left;
+      }
+
+      .footer {
+        margin-top: 34px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="hero" aria-labelledby="brandTitle">
+
+      <div class="brand">
+        <h1 id="brandTitle">Capycare.</h1>
+
+        <!-- Pixel-art wizard capybara facing left -->
+        <svg class="mascot"
+          viewBox="0 0 180 128"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="A cute capybara facing left wearing an oversized wizard hat"
+          shape-rendering="crispEdges">
+
+          <!-- Body -->
+          <path d="M48 77 L56 67 L76 63 L113 66
+                   L130 78 L134 94 L123 99
+                   L122 107 H106 V99 H79 V107 H64 V99
+                   L49 99 L40 89 Z"
+            fill="#b97b45" stroke="#563014" stroke-width="4"
+            stroke-linejoin="round"/>
+
+          <!-- Feet -->
+          <path d="M105 95 H123 V103 H103 Z"
+            fill="#87502c" stroke="#563014" stroke-width="3"/>
+          <path d="M44 95 H63 V103 H42 Z"
+            fill="#87502c" stroke="#563014" stroke-width="3"/>
+
+          <!-- Head -->
+          <path d="M44 60 L48 50 L63 45 L77 49
+                   L86 58 L87 66 L78 74 L55 74
+                   L44 68 Z"
+            fill="#d49a60" stroke="#563014" stroke-width="4"
+            stroke-linejoin="round"/>
+
+          <!-- Ear -->
+          <rect x="63" y="43" width="11" height="10"
+            fill="#b97b45" stroke="#563014" stroke-width="3"/>
+          <rect x="66" y="46" width="4" height="4" fill="#efb7a0"/>
+
+          <!-- Snout facing left -->
+          <path d="M49 59 L34 60 L23 65 L23 73
+                   L32 78 L49 76 L57 69 Z"
+            fill="#e2ad78" stroke="#563014" stroke-width="3"
+            stroke-linejoin="round"/>
+
+          <!-- Nose -->
+          <rect x="22" y="62" width="7" height="6" fill="#563014"/>
+
+          <!-- Eye -->
+          <rect x="43" y="55" width="5" height="6" fill="#3f2412"/>
+
+          <!-- Rosy cheek -->
+          <rect x="47" y="68" width="7" height="4" fill="#e99b91"/>
+
+          <!-- Oversized wizard hat -->
+          <path d="M39 49 L48 35 L64 38 L77 9
+                   L91 14 L108 36 L124 43
+                   L128 49 Z"
+            fill="#7770d9" stroke="#563014" stroke-width="3"
+            stroke-linejoin="round"/>
+
+          <!-- Hat brim resting on the head -->
+          <path d="M34 46 L48 43 L114 43 L128 48
+                   L125 54 L39 54 Z"
+            fill="#5750b5" stroke="#563014" stroke-width="3"
+            stroke-linejoin="round"/>
+
+          <!-- Hat stars -->
+          <path d="M78 18 l3 5 5 2 -5 3 -3 5 -3 -5 -5 -3 5 -2 Z"
+            fill="#fff0a7"/>
+          <rect x="98" y="34" width="5" height="5" fill="#fff0a7"/>
+
+          <!-- Magic wand -->
+          <path d="M137 83 L151 66"
+            stroke="#69451e" stroke-width="5"/>
+          <path d="M150 56 L154 63 L161 66 L154 70
+                   L150 77 L146 70 L139 66 L146 63 Z"
+            fill="#fff0a7" stroke="#563014" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <p class="tagline">
+        A cozy corner for whatever's on your mind.
+      </p>
+
+      <div class="stars" aria-hidden="true">✦ ✧ ✦</div>
+    </section>
+
+    <section class="choices" aria-label="Explore Capycare">
+
+      <!-- Anonymous Chat -->
+      <button class="choice" type="button" data-feature="anonymous">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <path d="M5 10 Q5 4 12 4 H36 Q43 4 43 11 V26
+              Q43 33 36 33 H24 L14 41 V33 H12 Q5 33 5 26 Z"
+              fill="#ffcb62" stroke="#563014" stroke-width="4"/>
+            <path d="M24 26 Q24 20 31 20 H52 Q59 20 59 27
+              V40 Q59 47 52 47 H47 V54 L38 47 H31 Q24 47 24 40 Z"
+              fill="#a7d9f7" stroke="#563014" stroke-width="4"/>
+            <g fill="#563014">
+              <rect x="14" y="15" width="5" height="5"/>
+              <rect x="24" y="15" width="5" height="5"/>
+              <rect x="34" y="15" width="5" height="5"/>
+            </g>
+          </svg>
+        </span>
+        <span class="choice-label">Anonymous Chat</span>
+      </button>
+
+      <!-- AI Chat -->
+      <button class="choice" type="button" data-feature="ai">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <path d="M32 3 V11" stroke="#563014" stroke-width="4"/>
+            <circle cx="32" cy="5" r="4"
+              fill="#ffcf58" stroke="#563014" stroke-width="3"/>
+            <rect x="9" y="12" width="46" height="35" rx="7"
+              fill="#a8d9fb" stroke="#563014" stroke-width="4"/>
+            <g fill="#563014">
+              <rect x="19" y="23" width="6" height="7"/>
+              <rect x="39" y="23" width="6" height="7"/>
+            </g>
+            <path d="M23 36 Q32 43 41 36"
+              stroke="#563014" stroke-width="4"/>
+            <rect x="3" y="23" width="6" height="14"
+              fill="#7770d9" stroke="#563014" stroke-width="3"/>
+            <rect x="55" y="23" width="6" height="14"
+              fill="#7770d9" stroke="#563014" stroke-width="3"/>
+          </svg>
+        </span>
+        <span class="choice-label">A.I Chat</span>
+      </button>
+
+      <!-- Medical Information -->
+      <button class="choice" type="button" data-feature="medical">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <path d="M14 5 H42 L53 16 V51 H14 Z"
+              fill="#fffaf0" stroke="#563014" stroke-width="4"/>
+            <path d="M42 5 V16 H53"
+              stroke="#563014" stroke-width="4"/>
+            <rect x="27" y="14" width="6" height="18" fill="#ef6654"/>
+            <rect x="21" y="20" width="18" height="6" fill="#ef6654"/>
+            <rect x="21" y="38" width="25" height="3" fill="#563014"/>
+            <rect x="21" y="44" width="20" height="3" fill="#563014"/>
+          </svg>
+        </span>
+        <span class="choice-label">Professional<br>Medical Advice</span>
+      </button>
+
+    </section>
+
+    <p class="footer">
+      Little steps count. <span>✦</span> You matter.
+    </p>
+  </main>
+
+  <!-- Popup shown by the buttons -->
+  <dialog id="featureDialog" aria-labelledby="dialogTitle">
+    <div class="modal-content">
+      <h2 id="dialogTitle">Coming soon!</h2>
+      <p id="dialogMessage"></p>
+
+      <button class="close-button" id="closeDialog" type="button">
+        Got it!
+      </button>
+
+      <div class="small-note">
+        Prototype only: this website does not provide real chat,
+        AI support, or medical care. Please don't enter private
+        or sensitive information.
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.getElementById('featureDialog');
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogMessage = document.getElementById('dialogMessage');
+
+    // Edit these messages to change what each button says.
+    const content = {
+      anonymous: {
+        title: 'Anonymous Chat',
+        message: 'Peer chat is not connected yet. In the future, this section could offer anonymous chatrooms and private direct messages for people you relate to.'
+      },
+
+      ai: {
+        title: 'A.I Chat',
+        message: 'The AI helper is not connected yet. In the future, it could answer sensitive questions without judgement, explain reliable health information, and help visitors find appropriate resources and navigate the website. AI can make mistakes and cannot replace a qualified health professional, the A.I model will make sure to warn the users of it\'s flaws.'
+      },
+
+      medical: {
+        title: 'Professional Medical Advice',
+        message: 'This demo does not provide professional medical advice. A future version would provide trustworthy medical information reviewed by qualified professionals and identify the sources behind its information. It would also include information of medical professions that the user could communicate with to get the aid they need'
+      }
+    };
+
+    // Open the correct popup when a feature button is clicked.
+    document.querySelectorAll('[data-feature]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const feature = content[button.dataset.feature];
+
+        if (!feature) return;
+
+        dialogTitle.textContent = feature.title;
+        dialogMessage.textContent = feature.message;
+
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          window.alert(feature.title + '\n\n' + feature.message);
+        }
+      });
+    });
+
+    // Close the popup with the Got it! button.
+    document.getElementById('closeDialog').addEventListener('click', () => {
+      dialog.close();
+    });
+
+    // Close the popup by clicking outside its content.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffb72f">
+  <meta name="description" content="Capycare — a cozy corner to talk, learn, and find support.">
+  <title>Capycare.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --sun: #ffb72f;
+      --sun-light: #ffc94f;
+      --cream: #fff4d6;
+      --ink: #563014;
+      --shadow: #ca7b1e;
+      --purple: #7770d9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--sun);
+      background-image: radial-gradient(
+        ellipse at 50% 30%,
+        #ffdc83 0%,
+        transparent 65%
+      );
+      color: var(--ink);
+      font-family: 'Nunito', sans-serif;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 55px 24px 35px;
+    }
+
+    .hero {
+      text-align: center;
+    }
+
+    .brand {
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 25px;
+      padding-top: 65px;
+    }
+
+    h1 {
+      margin: 0;
+      position: relative;
+      z-index: 2;
+      color: var(--cream);
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(2rem, 7vw, 5rem);
+      line-height: 1.35;
+      letter-spacing: -0.07em;
+      white-space: nowrap;
+      text-shadow:
+        4px 0 var(--ink),
+        -4px 0 var(--ink),
+        0 4px var(--ink),
+        0 -4px var(--ink),
+        4px 4px var(--ink),
+        -4px 4px var(--ink),
+        7px 8px #98551d;
+    }
+
+    .mascot {
+      position: absolute;
+      z-index: 3;
+      width: clamp(105px, 17vw, 165px);
+      height: auto;
+      top: -8px;
+      right: 1%;
+      transform: rotate(5deg);
+      filter: drop-shadow(3px 4px 0 rgba(86, 48, 20, .12));
+      pointer-events: none;
+    }
+
+    .tagline {
+      margin: 15px auto 0;
+      max-width: 550px;
+      color: #70421d;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 900;
+    }
+
+    .stars {
+      margin-top: 13px;
+      color: var(--cream);
+      font-size: 23px;
+      letter-spacing: 12px;
+      text-shadow: 1px 2px var(--shadow);
+    }
+
     .choices {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
