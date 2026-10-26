@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffb72f">
+  <title>Virus Pop! | Capycare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --sun:#ffb72f; --cream:#fff4d6; --ink:#563014; --shadow:#ca7b1e; --purple:#7770d9; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--ink); font-family:'Nunito',sans-serif; background:var(--sun); background-image:radial-gradient(ellipse at 50% 25%,#ffdc83 0%,transparent 65%); }
+    main { max-width:1050px; margin:auto; padding:26px 18px 40px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:18px; }
+    h1 { margin:0; font-family:'Press Start 2P',monospace; font-size:clamp(1.15rem,4vw,2rem); line-height:1.6; }
+    .back { display:inline-block; padding:10px 14px; border:3px solid var(--ink); border-radius:10px; background:var(--cream); color:var(--ink); text-decoration:none; font-weight:900; box-shadow:0 4px 0 var(--shadow); }
+    .intro { text-align:center; font-weight:800; margin:0 0 18px; }
+    .game-panel { padding:14px; background:var(--cream); border:4px solid var(--ink); border-radius:18px; box-shadow:0 9px 0 var(--shadow); }
+    .hud { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; padding:3px 3px 12px; font-weight:900; }
+    .pixel { font-family:'Press Start 2P',monospace; font-size:.72rem; line-height:1.8; }
+    #game { display:block; width:100%; height:auto; aspect-ratio:900 / 470; border:3px solid var(--ink); border-radius:10px; background:#fff0c5; cursor:crosshair; touch-action:manipulation; }
+    .controls { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:15px; }
+    button { padding:12px 17px; border:3px solid var(--ink); border-radius:10px; background:#ffc94f; color:var(--ink); box-shadow:0 4px 0 var(--shadow); font:inherit; font-weight:900; cursor:pointer; }
+    button:active { transform:translateY(3px); box-shadow:0 1px 0 var(--shadow); }
+    .hint { text-align:center; margin:13px 0 0; line-height:1.6; font-weight:700; }
+    .note { font-size:.8rem; color:#80552c; text-align:center; margin-top:20px; }
+    @media(max-width:600px) { main{padding:18px 10px 30px}.game-panel{padding:8px}.pixel{font-size:.6rem}header{align-items:flex-start} }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Virus Pop!</h1>
+    <a class="back" href="index.html">← Back to Capycare</a>
+  </header>
+  <p class="intro">Help our wizard capybara protect the cozy corner!</p>
+  <section class="game-panel" aria-label="Virus Pop game">
+    <div class="hud"><span class="pixel">SCORE: <span id="score">0</span></span><span class="pixel">TIME: <span id="time">30</span></span><span class="pixel">BEST: <span id="best">0</span></span></div>
+    <canvas id="game" width="900" height="470" aria-label="Click the approaching cartoon viruses to make them disappear"></canvas>
+    <div class="controls"><button id="start">Start game</button><button id="reset">Restart</button></div>
+    <p class="hint" id="message" aria-live="polite">Click Start game, then tap or click the viruses before they reach Capybara!</p>
+  </section>
+  <p class="note">Just a playful mini-game. Cartoon viruses are game characters, not real medical information.</p>
+</main>
+<script>
+(() => {
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const scoreEl = document.getElementById('score');
+  const timeEl = document.getElementById('time');
+  const bestEl = document.getElementById('best');
+  const message = document.getElementById('message');
+  const startBtn = document.getElementById('start');
+  const resetBtn = document.getElementById('reset');
+  let score = 0, timeLeft = 30, running = false, last = 0, spawnClock = 0, tick = 0;
+  let viruses = [], poofs = [], sparks = [], aim = {x:250,y:230}, shot = 0;
+  let best = 0;
+  try { best = Number(localStorage.getItem('capycareVirusPopBest') || 0); } catch(e) {}
+  bestEl.textContent = best;
+  const W = 900, H = 470;
+  function rand(min,max){ return Math.random()*(max-min)+min; }
+  function drawCapy(){
+    const x=105, y=260;
+    // wand aim and magic beam
+    const wx=224, wy=280;
+    const angle=Math.atan2(aim.y-wy,aim.x-wx);
+    if (shot>0) {
+      ctx.save(); ctx.globalAlpha=Math.min(1,shot*5); ctx.strokeStyle='#7770d9'; ctx.lineWidth=7; ctx.setLineDash([8,8]); ctx.beginPath(); ctx.moveTo(wx,wy); ctx.lineTo(aim.x,aim.y); ctx.stroke(); ctx.restore();
+    }
+    // body
+    ctx.fillStyle='#b97b45'; ctx.strokeStyle='#563014'; ctx.lineWidth=5;
+    ctx.beginPath(); ctx.roundRect(68,292,145,82,24); ctx.fill(); ctx.stroke();
+    // feet
+    ctx.fillStyle='#87502c'; ctx.fillRect(91,357,32,24); ctx.strokeRect(91,357,32,24); ctx.fillRect(171,357,30,24); ctx.strokeRect(171,357,30,24);
+    // head and snout facing right toward viruses
+    ctx.fillStyle='#d49a60'; ctx.beginPath(); ctx.roundRect(155,260,75,70,24); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#e2ad78'; ctx.beginPath(); ctx.roundRect(205,286,49,34,13); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#563014'; ctx.fillRect(245,294,9,7); ctx.fillRect(204,279,6,7);
+    ctx.fillStyle='#e99b91'; ctx.fillRect(216,308,12,6);
+    // wizard hat
+    ctx.fillStyle='#7770d9'; ctx.beginPath(); ctx.moveTo(142,269); ctx.lineTo(162,227); ctx.lineTo(181,235); ctx.lineTo(195,185); ctx.lineTo(221,230); ctx.lineTo(243,250); ctx.lineTo(236,270); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#5750b5'; ctx.beginPath(); ctx.moveTo(139,260); ctx.lineTo(237,260); ctx.lineTo(250,274); ctx.lineTo(133,274); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#fff0a7'; drawStar(190,225,8); drawStar(217,247,4);
+    // wand arm and wand pointed at the last click
+    ctx.strokeStyle='#87502c'; ctx.lineWidth=13; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(190,318); ctx.lineTo(215,299); ctx.stroke();
+    ctx.save(); ctx.translate(wx,wy); ctx.rotate(angle); ctx.strokeStyle='#69451e'; ctx.lineWidth=8; ctx.beginPath(); ctx.moveTo(-5,0); ctx.lineTo(28,0); ctx.stroke(); ctx.fillStyle='#fff0a7'; ctx.strokeStyle='#563014'; ctx.lineWidth=3; ctx.beginPath(); ctx.arc(32,0,8,0,Math.PI*2); ctx.fill(); ctx.stroke(); ctx.restore();
+  }
+  function drawStar(x,y,r){ ctx.beginPath(); for(let i=0;i<10;i++){let a=-Math.PI/2+i*Math.PI/5, rr=i%2===0?r:r*.45;let px=x+Math.cos(a)*rr,py=y+Math.sin(a)*rr;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}ctx.closePath();ctx.fill(); }
+  function drawVirus(v){
+    ctx.save(); ctx.translate(v.x,v.y); ctx.rotate(v.spin);
+    const r=v.r; ctx.strokeStyle='#3d6e3b'; ctx.lineWidth=4; ctx.lineCap='round';
+    for(let i=0;i<10;i++){let a=i*Math.PI/5;ctx.beginPath();ctx.moveTo(Math.cos(a)*(r-2),Math.sin(a)*(r-2));ctx.lineTo(Math.cos(a)*(r+9),Math.sin(a)*(r+9));ctx.stroke();ctx.fillStyle='#78bd72';ctx.beginPath();ctx.arc(Math.cos(a)*(r+10),Math.sin(a)*(r+10),4,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle=v.color; ctx.strokeStyle='#3d6e3b'; ctx.lineWidth=4; ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#563014';ctx.fillRect(-r*.38,-r*.18,5,7);ctx.fillRect(r*.18,-r*.18,5,7);ctx.strokeStyle='#563014';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,r*.05,r*.32,.2,Math.PI-.2);ctx.stroke();
+    ctx.restore();
+  }
+  function drawPoof(p){ ctx.save();ctx.globalAlpha=Math.max(0,p.life);ctx.strokeStyle='#7770d9';ctx.lineWidth=5;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#fff0a7';for(let i=0;i<5;i++){let a=i*Math.PI*2/5;drawStar(p.x+Math.cos(a)*p.r,p.y+Math.sin(a)*p.r,5);}ctx.restore(); }
+  function background(){
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#fff0c5';ctx.fillRect(0,0,W,H);
+    // pixel garden floor
+    ctx.fillStyle='#e4c77c';ctx.fillRect(0,405,W,65);ctx.fillStyle='#c7a75a';for(let x=0;x<W;x+=30)ctx.fillRect(x,405,15,4);
+    ctx.fillStyle='#f7dda0';for(let i=0;i<9;i++){let x=30+i*100;ctx.fillRect(x,40,5,5);ctx.fillRect(x+10,50,4,4);}
+    ctx.fillStyle='#d8e8a8';ctx.fillRect(22,365,28,40);ctx.fillRect(30,348,12,20);ctx.fillRect(270,380,24,25);
+  }
+  function render(){ background(); viruses.forEach(drawVirus); poofs.forEach(drawPoof); drawCapy();
+    sparks.forEach(s=>{ctx.save();ctx.globalAlpha=Math.max(0,s.life*2);ctx.fillStyle='#fff0a7';ctx.fillRect(s.x,s.y,5,5);ctx.restore();});
+    if(!running && timeLeft===0){ctx.fillStyle='rgba(255,244,214,.88)';ctx.fillRect(245,145,410,120);ctx.strokeStyle='#563014';ctx.lineWidth=4;ctx.strokeRect(245,145,410,120);ctx.fillStyle='#563014';ctx.textAlign='center';ctx.font='20px "Press Start 2P"';ctx.fillText('TIME UP!',450,190);ctx.font='14px Nunito';ctx.fillText('You popped '+score+' viruses!',450,226);}
+    else if(!running && timeLeft===30){ctx.fillStyle='rgba(255,244,214,.84)';ctx.fillRect(230,150,440,100);ctx.strokeStyle='#563014';ctx.lineWidth=4;ctx.strokeRect(230,150,440,100);ctx.fillStyle='#563014';ctx.textAlign='center';ctx.font='15px "Press Start 2P"';ctx.fillText('READY, WIZARD?',450,190);ctx.font='18px Nunito';ctx.fillText('Click Start game to begin!',450,222);}
+  }
+  function spawn(){const edge=Math.floor(Math.random()*3);let x,y;if(edge===0){x=W+30;y=rand(65,380);}else if(edge===1){x=rand(300,W-30);y=-25;}else{x=rand(300,W-30);y=H+25;}const palette=['#78bd72','#f08b8b','#8bc9ee','#c1a0ed','#ffbd59'];const r=rand(18,25);const speed=rand(30,58)+(score*.3);viruses.push({x,y,r,color:palette[Math.floor(Math.random()*palette.length)],speed,spin:rand(-.2,.2),vx:0,vy:0});}
+  function pop(v){aim={x:v.x,y:v.y};shot=.16;poofs.push({x:v.x,y:v.y,r:8,life:1});for(let i=0;i<8;i++){let a=Math.PI*2*i/8; sparks.push({x:v.x,y:v.y,vx:Math.cos(a)*rand(50,140),vy:Math.sin(a)*rand(50,140),life:.45});}score++;scoreEl.textContent=score;}
+  function update(dt){tick+=dt;shot=Math.max(0,shot-dt);if(running){timeLeft=Math.max(0,timeLeft-dt);timeEl.textContent=Math.ceil(timeLeft);spawnClock+=dt;if(spawnClock>.9){spawn();spawnClock=0;}if(timeLeft<=0){finish();}}
+    viruses.forEach(v=>{if(running){let dx=160-v.x,dy=320-v.y,d=Math.hypot(dx,dy)||1;v.x+=dx/d*v.speed*dt;v.y+=dy/d*v.speed*dt;v.spin+=dt*.5;if(d<62){v.escaped=true;timeLeft=Math.max(0,timeLeft-2);timeEl.textContent=Math.ceil(timeLeft);message.textContent='A virus slipped past! -2 seconds. Pop the next one!';}}});
+    viruses=viruses.filter(v=>!v.escaped && v.x>115 && v.x<W+70 && v.y>-60 && v.y<H+60);
+    poofs.forEach(p=>{p.r+=100*dt;p.life-=2.5*dt;});poofs=poofs.filter(p=>p.life>0);
+    sparks.forEach(s=>{s.x+=s.vx*dt;s.y+=s.vy*dt;s.life-=dt;});sparks=sparks.filter(s=>s.life>0);
+  }
+  let previous=0;
+  function loop(now){let dt=Math.min((now-previous)/1000,.04);previous=now;update(dt||0);render();requestAnimationFrame(loop);}
+  function start(){score=0;timeLeft=30;running=true;last=performance.now();spawnClock=0;viruses=[];poofs=[];sparks=[];scoreEl.textContent='0';timeEl.textContent='30';message.textContent='Pop the viruses! Aim carefully, wizard!';startBtn.textContent='Playing…';startBtn.disabled=true;}
+  function finish(){running=false;startBtn.disabled=false;startBtn.textContent='Play again';message.textContent='Time is up! You popped '+score+' viruses. Want another round?';if(score>best){best=score;bestEl.textContent=best;try{localStorage.setItem('capycareVirusPopBest',String(best));}catch(e){}}}
+  function reset(){running=false;score=0;timeLeft=30;viruses=[];poofs=[];sparks=[];scoreEl.textContent='0';timeEl.textContent='30';startBtn.disabled=false;startBtn.textContent='Start game';message.textContent='Click Start game, then tap or click the viruses before they reach Capybara!';}
+  function clickAt(e){const rect=canvas.getBoundingClientRect();const x=(e.clientX-rect.left)*W/rect.width;const y=(e.clientY-rect.top)*H/rect.height;if(!running)return;let index=-1,bestDist=Infinity;viruses.forEach((v,i)=>{let d=Math.hypot(v.x-x,v.y-y);if(d<v.r+14&&d<bestDist){index=i;bestDist=d;}});if(index>=0){pop(viruses[index]);viruses.splice(index,1);}else{aim={x,y};shot=.08;}}
+  canvas.addEventListener('pointerdown',clickAt);startBtn.addEventListener('click',start);resetBtn.addEventListener('click',reset);requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
