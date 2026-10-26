@@ -109,13 +109,15 @@
     /* Three buttons across on desktop */
     .choices {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 22px;
       max-width: 990px;
       margin: 43px auto 0;
     }
 
     .choice {
+      text-decoration: none;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -132,6 +134,11 @@
       cursor: pointer;
       transition: transform .15s, box-shadow .15s, background .15s;
     }
+    
+a.choice {
+  width: 100%;
+}
+
 
     .choice:hover,
     .choice:focus-visible {
@@ -448,6 +455,39 @@
         </span>
         <span class="choice-label">Professional<br>Medical Advice</span>
       </button>
+
+      <!-- Virus Pop! Game -->
+      <a class="choice game-choice" href="game.html">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <!-- Cartoon virus -->
+            <g stroke="#563014" stroke-width="3" stroke-linejoin="round">
+              <path d="M32 8 V3 M32 55 V50 M8 29 H3 M61 29 H56
+                       M14 12 L10 8 M50 48 L54 52
+                       M50 12 L54 8 M14 48 L10 52"/>
+              <path d="M32 10
+                       L39 15 L48 15 L50 24
+                       L56 29 L50 36 L48 44
+                       L39 44 L32 50 L25 44
+                       L16 44 L14 36 L8 29
+                       L14 22 L16 15 L25 15 Z"
+                    fill="#9be56b"/>
+            </g>
+            <g fill="#563014">
+              <rect x="22" y="25" width="5" height="7"/>
+              <rect x="37" y="25" width="5" height="7"/>
+            </g>
+            <path d="M24 37 Q32 43 40 37"
+                  stroke="#563014" stroke-width="3"
+                  stroke-linecap="round"/>
+            <!-- Magic sparkle -->
+            <path d="M49 4 L52 11 L59 14 L52 17 L49 24
+                     L46 17 L39 14 L46 11 Z"
+                  fill="#7770d9" stroke="#563014" stroke-width="2"/>
+          </svg>
+        </span>
+        <span class="choice-label">Virus Pop!</span>
+      </a>
 
     </section>
 
