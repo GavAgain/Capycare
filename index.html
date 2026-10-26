@@ -194,48 +194,58 @@
       <div class="brand-lockup">
         <h1 id="brandTitle">Capycare.</h1>
         <!-- Small, blocky capybara wizard mascot drawn directly as SVG. -->
-        <svg class="mascot" viewBox="0 0 180 128" role="img" aria-label="Pixel-art capybara wearing a wizard hat" shape-rendering="crispEdges">
-          <g stroke="#563014" stroke-width="4" stroke-linejoin="miter">
-            <!-- wizard hat -->
-            <path d="M58 46 L58 37 L70 37 L70 28 L82 28 L82 18 L96 18 L96 8 L117 8 L117 19 L130 19 L130 30 L141 30 L141 44 L126 44 L126 52 Z" fill="#7770d9"/>
-            <path d="M55 43 L134 43 L141 50 L49 50 Z" fill="#5750b5"/>
-            <!-- body -->
-            <path d="M49 64 L62 55 L94 55 L109 63 L124 64 L135 76 L135 91 L124 91 L124 102 L106 102 L106 95 L90 95 L90 103 L72 103 L72 96 L57 96 L57 88 L44 88 L38 78 Z" fill="#b97b45"/>
-            <!-- head and snout -->
-            <path d="M38 61 L38 51 L50 43 L74 43 L87 52 L87 63 L76 69 L65 69 L65 77 L51 77 L51 71 L37 71 Z" fill="#d49a60"/>
-            <path d="M20 61 L20 53 L32 53 L32 60 L44 60 L44 70 L32 70 L32 77 L18 77 L18 70 L12 70 L12 63 Z" fill="#d49a60"/>
-            <!-- feet -->
-            <path d="M74 95 L85 95 L85 103 L71 103 L66 98 Z" fill="#87502c"/>
-            <path d="M109 94 L120 94 L120 102 L105 102 L101 98 Z" fill="#87502c"/>
-          </g>
-          <!-- face -->
-          <rect x="41" y="54" width="5" height="5" fill="#3f2412"/>
-          <rect x="25" y="61" width="7" height="4" fill="#3f2412"/>
-          <rect x="50" y="62" width="7" height="3" fill="#8b4e2e"/>
-          <rect x="77" y="73" width="8" height="4" fill="#e9a0a1"/>
-          <!-- hat stars -->
-          <g fill="#fff0a7">
-            <path d="M101 20 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 Z"/>
-            <rect x="119" y="30" width="5" height="5"/>
-            <rect x="86" y="31" width="4" height="4"/>
-          </g>
-          <!-- tiny wand -->
-          <path d="M145 67 L157 51" stroke="#69451e" stroke-width="5"/>
-          <path d="M154 43 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 Z" fill="#fff0a7" stroke="#563014" stroke-width="2"/>
-        </svg>
-      </div>
-      <p class="tagline">A cozy corner for whatever's on your mind.</p>
-      <div class="tiny-stars" aria-hidden="true">✦　✧　✦</div>
-    </section>
+        
+<svg class="mascot" viewBox="0 0 180 128" role="img" aria-label="Cute pixel-art capybara wizard" shape-rendering="crispEdges">
+  <!-- Wizard hat -->
+  <g stroke="#563014" stroke-width="3" stroke-linejoin="round">
+    <path d="M57 48 L65 31 L78 35 L91 9 L104 15 L120 37 L134 42 L133 49 Z"
+          fill="#7770d9"/>
+    <path d="M50 46 L135 46 L143 54 L44 54 Z" fill="#5750b5"/>
+    <rect x="89" y="25" width="6" height="6" fill="#fff0a7" stroke="none"/>
+    <rect x="106" y="35" width="5" height="5" fill="#fff0a7" stroke="none"/>
+  </g>
 
-    <section class="choices" aria-label="Explore Capycare">
-      <button class="choice" type="button" data-feature="anonymous">
-        <span class="choice-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 58" fill="none">
-            <path d="M5 10 Q5 4 12 4 H36 Q43 4 43 11 V26 Q43 33 36 33 H24 L14 41 V33 H12 Q5 33 5 26 Z" fill="#ffcb62" stroke="#563014" stroke-width="4"/>
-            <path d="M24 26 Q24 20 31 20 H52 Q59 20 59 27 V40 Q59 47 52 47 H47 V54 L38 47 H31 Q24 47 24 40 Z" fill="#a7d9f7" stroke="#563014" stroke-width="4"/>
-            <rect x="14" y="15" width="5" height="5" fill="#563014"/><rect x="24" y="15" width="5" height="5" fill="#563014"/><rect x="34" y="15" width="5" height="5" fill="#563014"/>
-          </svg>
+  <!-- Body -->
+  <path d="M45 77 L54 65 L73 61 L113 64 L129 77 L132 96
+           L120 96 L120 108 L105 108 L105 98 L78 98
+           L78 108 L63 108 L63 98 L48 98 L40 89 Z"
+        fill="#b97b45" stroke="#563014" stroke-width="4"
+        stroke-linejoin="round"/>
+
+  <!-- Head and chunky capybara snout -->
+  <path d="M43 59 L49 48 L66 45 L82 51 L88 61
+           L101 61 L111 67 L111 76 L100 80
+           L81 80 L72 75 L53 75 L43 68 Z"
+        fill="#d49a60" stroke="#563014" stroke-width="4"
+        stroke-linejoin="round"/>
+
+  <!-- Little ear -->
+  <rect x="52" y="42" width="11" height="10" fill="#b97b45"
+        stroke="#563014" stroke-width="3"/>
+  <rect x="56" y="45" width="4" height="4" fill="#efb7a0"/>
+
+  <!-- Snout and nose -->
+  <rect x="91" y="64" width="15" height="10" fill="#e2ad78"/>
+  <rect x="102" y="63" width="8" height="6" fill="#563014"/>
+  <rect x="96" y="75" width="5" height="3" fill="#87502c"/>
+
+  <!-- Eye and rosy cheek -->
+  <rect x="76" y="57" width="5" height="6" fill="#3f2412"/>
+  <rect x="83" y="67" width="8" height="4" fill="#e99b91"/>
+
+  <!-- Tiny feet -->
+  <rect x="44" y="94" width="19" height="9" fill="#87502c"
+        stroke="#563014" stroke-width="3"/>
+  <rect x="102" y="94" width="19" height="9" fill="#87502c"
+        stroke="#563014" stroke-width="3"/>
+
+  <!-- Little magic wand -->
+  <path d="M137 81 L151 65" stroke="#69451e" stroke-width="5"/>
+  <path d="M150 55 L154 62 L161 65 L154 69 L150 76
+           L146 69 L139 65 L146 62 Z"
+        fill="#fff0a7" stroke="#563014" stroke-width="2"/>
+</svg>
+
         </span>
         <span class="choice-label">Anonymous Chat</span>
       </button>
