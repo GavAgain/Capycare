@@ -153,7 +153,7 @@
       height: 56px;
     }
 
-    .choice-icon svg {
+    .choice-icon  {
       width: 58px;
       height: 54px;
     }
@@ -297,86 +297,83 @@
       <div class="brand">
         <h1 id="brandTitle">Capycare.</h1>
 
-        <!-- Pixel-art wizard capybara -->
-        <svg class="mascot"
-          viewBox="0 0 180 128"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label="A cute capybara wearing a wizard hat"
-          shape-rendering="crispEdges">
+        
+<!-- Pixel-art wizard capybara facing left -->
+<svg class="mascot"
+  viewBox="0 0 180 128"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="A cute capybara facing left wearing an oversized wizard hat"
+  shape-rendering="crispEdges">
 
-          <!-- Wizard hat -->
-          <path d="M52 48 L64 31 L78 34 L92 8
-                   L106 14 L122 36 L136 43 L132 51 Z"
-            fill="#7770d9" stroke="#563014" stroke-width="3"
-            stroke-linejoin="round"/>
+  <!-- Body -->
+  <path d="M48 77 L56 67 L76 63 L113 66
+           L130 78 L134 94 L123 99
+           L122 107 H106 V99 H79 V107 H64 V99
+           L49 99 L40 89 Z"
+    fill="#b97b45" stroke="#563014" stroke-width="4"
+    stroke-linejoin="round"/>
 
-          <!-- Hat brim -->
-          <path d="M46 46 H136 L144 53 H42 Z"
-            fill="#5750b5" stroke="#563014" stroke-width="3"/>
+  <!-- Back feet -->
+  <path d="M105 95 H123 V103 H103 Z"
+    fill="#87502c" stroke="#563014" stroke-width="3"/>
 
-          <!-- Hat stars -->
-          <path d="M96 18 l3 5 5 2 -5 3 -3 5 -3 -5 -5 -3 5 -2 Z"
-            fill="#fff0a7"/>
-          <rect x="115" y="35" width="5" height="5" fill="#fff0a7"/>
+  <!-- Front feet -->
+  <path d="M44 95 H63 V103 H42 Z"
+    fill="#87502c" stroke="#563014" stroke-width="3"/>
 
-          <!-- Body -->
-          <path d="M47 77 L55 66 L74 62 L112 65
-                   L128 77 L132 94 L121 98
-                   L120 107 H105 V98 H78 V107 H63 V98
-                   L48 98 L40 89 Z"
-            fill="#b97b45" stroke="#563014" stroke-width="4"
-            stroke-linejoin="round"/>
+  <!-- Head: facing left -->
+  <path d="M44 60 L48 50 L63 45 L77 49
+           L86 58 L87 66 L78 74 L55 74
+           L44 68 Z"
+    fill="#d49a60" stroke="#563014" stroke-width="4"
+    stroke-linejoin="round"/>
 
-          <!-- Head -->
-          <path d="M43 59 L48 49 L65 45 L80 50
-                   L88 59 L88 66 L78 74 L55 74
-                   L44 68 Z"
-            fill="#d49a60" stroke="#563014" stroke-width="4"
-            stroke-linejoin="round"/>
+  <!-- Ear -->
+  <rect x="63" y="43" width="11" height="10"
+    fill="#b97b45" stroke="#563014" stroke-width="3"/>
+  <rect x="66" y="46" width="4" height="4" fill="#efb7a0"/>
 
-          <!-- Round ear -->
-          <rect x="51" y="43" width="11" height="10"
-            fill="#b97b45" stroke="#563014" stroke-width="3"/>
-          <rect x="55" y="46" width="4" height="4" fill="#efb7a0"/>
+  <!-- Snout extends LEFT -->
+  <path d="M49 59 L34 60 L23 65 L23 73
+           L32 78 L49 76 L57 69 Z"
+    fill="#e2ad78" stroke="#563014" stroke-width="3"
+    stroke-linejoin="round"/>
 
-          <!-- Long, rounded snout -->
-          <path d="M77 59 L96 60 L106 65 L106 74
-                   L97 78 L80 76 L73 69 Z"
-            fill="#e2ad78" stroke="#563014" stroke-width="3"
-            stroke-linejoin="round"/>
+  <!-- Nose at the tip -->
+  <rect x="22" y="62" width="7" height="6" fill="#563014"/>
 
-          <!-- Nose -->
-          <rect x="99" y="62" width="7" height="6" fill="#563014"/>
+  <!-- Eye -->
+  <rect x="43" y="55" width="5" height="6" fill="#3f2412"/>
 
-          <!-- Eye -->
-          <rect x="73" y="55" width="5" height="6" fill="#3f2412"/>
+  <!-- Rosy cheek -->
+  <rect x="47" y="68" width="7" height="4" fill="#e99b91"/>
 
-          <!-- Rosy cheek -->
-          <rect x="81" y="68" width="7" height="4" fill="#e99b91"/>
+  <!-- Oversized wizard hat, resting on the head -->
+  <path d="M39 49 L48 35 L64 38 L77 9
+           L91 14 L108 36 L124 43
+           L128 49 Z"
+    fill="#7770d9" stroke="#563014" stroke-width="3"
+    stroke-linejoin="round"/>
 
-          <!-- Feet -->
-          <path d="M45 94 H63 V103 H43 Z"
-            fill="#87502c" stroke="#563014" stroke-width="3"/>
-          <path d="M103 94 H121 V103 H101 Z"
-            fill="#87502c" stroke="#563014" stroke-width="3"/>
+  <!-- Hat brim sitting directly on head -->
+  <path d="M34 46 L48 43 L114 43 L128 48
+           L125 54 L39 54 Z"
+    fill="#5750b5" stroke="#563014" stroke-width="3"
+    stroke-linejoin="round"/>
 
-          <!-- Magic wand -->
-          <path d="M137 82 L151 65"
-            stroke="#69451e" stroke-width="5"/>
-          <path d="M150 55 L154 62 L161 65 L154 69
-                   L150 76 L146 69 L139 65 L146 62 Z"
-            fill="#fff0a7" stroke="#563014" stroke-width="2"/>
-        </svg>
-      </div>
+  <!-- Hat stars -->
+  <path d="M78 18 l3 5 5 2 -5 3 -3 5 -3 -5 -5 -3 5 -2 Z"
+    fill="#fff0a7"/>
+  <rect x="98" y="34" width="5" height="5" fill="#fff0a7"/>
 
-      <p class="tagline">
-        A cozy corner for whatever's on your mind.
-      </p>
-      <div class="stars" aria-hidden="true">✦ ✧ ✦</div>
-    </section>
-
-    <section class="choices" aria-label="Explore Capycare">
+  <!-- Magic wand -->
+  <path d="M137 83 L151 66"
+    stroke="#69451e" stroke-width="5"/>
+  <path d="M150 56 L154 63 L161 66 L154 70
+           L150 77 L146 70 L139 66 L146 63 Z"
+    fill="#fff0a7" stroke="#563014" stroke-width="2"/>
+</svg>
 
       <!-- Anonymous Chat -->
       <button class="choice" type="button" data-feature="anonymous">
