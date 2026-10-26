@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffb82e">
+  <meta name="description" content="Capycare — a friendly concept for talking, learning, and finding support.">
+  <title>Capycare.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sun: #ffb72f;
+      --sun-light: #ffc64e;
+      --cream: #fff4d6;
+      --ink: #563014;
+      --ink-deep: #3f2412;
+      --purple: #7770d9;
+      --shadow: #ca7b1e;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink-deep);
+      background: var(--sun);
+      background-image: radial-gradient(ellipse at 50% 34%, rgba(255, 219, 114, .55), transparent 55%);
+      font-family: 'Nunito', system-ui, sans-serif;
+    }
+    button { font: inherit; }
+
+    /* Decorative browser bar: this is part of the design, not the real browser controls. */
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 62px;
+      padding: 10px 20px;
+      background: #fff0cc;
+      border-bottom: 5px solid #d18a2a;
+      box-shadow: 0 4px 0 rgba(92, 49, 12, .08);
+    }
+    .window-dots { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+    .dot { width: 15px; height: 15px; border-radius: 50%; display: inline-block; border: 2px solid rgba(76, 43, 18, .14); }
+    .dot.red { background: #ff6961; }
+    .dot.yellow { background: #ffc94f; }
+    .dot.green { background: #5abb68; }
+    .browser-arrow { color: #795026; font-size: 21px; font-weight: 900; line-height: 1; }
+    .address-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+      height: 40px;
+      padding: 0 15px;
+      background: #fff9e9;
+      border: 2px solid #efce8a;
+      border-radius: 999px;
+      color: #63431f;
+      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lock { font-size: 14px; }
+    .star { font-size: 18px; margin-left: auto; }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 62px 26px 36px;
+    }
+    .hero { text-align: center; }
+    .brand-lockup {
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 34px;
+      padding-top: 35px;
+    }
+    h1 {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+      color: var(--cream);
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: clamp(2rem, 6.8vw, 5.25rem);
+      line-height: 1.28;
+      letter-spacing: -0.07em;
+      text-shadow:
+        4px 0 var(--ink), -4px 0 var(--ink), 0 4px var(--ink), 0 -4px var(--ink),
+        4px 4px var(--ink), -4px 4px var(--ink), 4px -4px var(--ink), -4px -4px var(--ink),
+        7px 8px 0 #98551d;
+      white-space: nowrap;
+    }
+    .mascot {
+      position: absolute;
+      z-index: 3;
+      width: clamp(120px, 18vw, 205px);
+      right: 7%;
+      top: -35px;
+      transform: rotate(5deg);
+      filter: drop-shadow(4px 5px 0 rgba(88, 48, 20, .12));
+      pointer-events: none;
+    }
+    .tagline {
+      margin: 0 auto;
+      max-width: 560px;
+      color: #70421d;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .tiny-stars { margin-top: 13px; color: #fff5cf; font-size: 20px; letter-spacing: 13px; text-shadow: 1px 2px #cc7e24; }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      max-width: 990px;
+      margin: 42px auto 0;
+    }
+    .choice {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      min-height: 190px;
+      padding: 24px 15px;
+      border: 4px solid var(--ink);
+      border-radius: 16px;
+      background: var(--cream);
+      color: var(--ink);
+      box-shadow: 0 8px 0 var(--shadow), 0 12px 15px rgba(103, 57, 17, .11);
+      cursor: pointer;
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+    }
+    .choice:hover, .choice:focus-visible {
+      transform: translateY(-5px);
+      background: #fff9e9;
+      box-shadow: 0 13px 0 var(--shadow), 0 17px 18px rgba(103, 57, 17, .13);
+      outline: none;
+    }
+    .choice:active { transform: translateY(3px); box-shadow: 0 3px 0 var(--shadow); }
+    .choice-icon {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 56px;
+      color: var(--ink);
+    }
+    .choice-icon svg { width: 58px; height: 54px; overflow: visible; }
+    .choice-label {
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: clamp(.63rem, 1.3vw, .88rem);
+      line-height: 1.8;
+      text-align: center;
+    }
+    .footer-note {
+      margin: 46px auto 0;
+      text-align: center;
+      color: #70421d;
+      font-weight: 900;
+      font-size: .96rem;
+    }
+    .footer-note span { color: #fff4d6; text-shadow: 1px 1px #b36d1e; }
+
+    dialog {
+      width: min(92vw, 470px);
+      padding: 0;
+      border: 4px solid var(--ink);
+      border-radius: 18px;
+      background: var(--cream);
+      color: var(--ink-deep);
+      box-shadow: 0 12px 0 rgba(77, 41, 15, .22);
+    }
+    dialog::backdrop { background: rgba(65, 36, 16, .42); backdrop-filter: blur(3px); }
+    .modal-content { padding: 27px; }
+    .modal-content h2 {
+      margin: 0 0 15px;
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .modal-content p { font-size: 1.02rem; line-height: 1.6; margin: 0 0 19px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+    .close-button {
+      border: 3px solid var(--ink);
+      border-radius: 10px;
+      padding: 10px 17px;
+      background: var(--sun-light);
+      color: var(--ink-deep);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--shadow);
+    }
+    .close-button:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--shadow); }
+    .small-note { margin-top: 18px; font-size: .78rem; line-height: 1.5; color: #80552c; }
+
+    @media (max-width: 720px) {
+      .browser-bar { gap: 9px; min-height: 54px; padding: 8px 10px; }
+      .dot { width: 12px; height: 12px; }
+      .browser-arrow { display: none; }
+      .address-pill { height: 36px; padding: 0 11px; font-size: 12px; }
+      main { padding: 50px 17px 28px; }
+      .brand-lockup { margin-bottom: 22px; padding-top: 42px; }
+      .mascot { width: 118px; right: 3%; top: -29px; }
+      h1 { font-size: clamp(1.7rem, 8.5vw, 3.4rem); letter-spacing: -.08em; }
+      .choices { grid-template-columns: 1fr; max-width: 410px; gap: 17px; margin-top: 30px; }
+      .choice { min-height: 125px; flex-direction: row; justify-content: flex-start; gap: 17px; padding: 20px 26px; }
+      .choice-icon { flex: 0 0 60px; }
+      .choice-label { font-size: .72rem; text-align: left; }
+      .footer-note { margin-top: 35px; font-size: .86rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-bar" aria-label="Decorative browser address bar">
+    <div class="window-dots" aria-hidden="true"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+    <span class="browser-arrow" aria-hidden="true">‹</span>
+    <span class="browser-arrow" aria-hidden="true">›</span>
+    <span class="browser-arrow" aria-hidden="true">⟳</span>
+    <div class="address-pill"><span class="lock" aria-hidden="true">🔒</span><span id="addressText">https://yourusername.github.io/capycare/</span><span class="star" aria-hidden="true">☆</span></div>
+  </div>
+
+  <main>
+    <section class="hero" aria-labelledby="brandTitle">
+      <div class="brand-lockup">
+        <h1 id="brandTitle">Capycare.</h1>
+        <!-- Small, blocky capybara wizard mascot drawn directly as SVG. -->
+        <svg class="mascot" viewBox="0 0 180 128" role="img" aria-label="Pixel-art capybara wearing a wizard hat" shape-rendering="crispEdges">
+          <g stroke="#563014" stroke-width="4" stroke-linejoin="miter">
+            <!-- wizard hat -->
+            <path d="M58 46 L58 37 L70 37 L70 28 L82 28 L82 18 L96 18 L96 8 L117 8 L117 19 L130 19 L130 30 L141 30 L141 44 L126 44 L126 52 Z" fill="#7770d9"/>
+            <path d="M55 43 L134 43 L141 50 L49 50 Z" fill="#5750b5"/>
+            <!-- body -->
+            <path d="M49 64 L62 55 L94 55 L109 63 L124 64 L135 76 L135 91 L124 91 L124 102 L106 102 L106 95 L90 95 L90 103 L72 103 L72 96 L57 96 L57 88 L44 88 L38 78 Z" fill="#b97b45"/>
+            <!-- head and snout -->
+            <path d="M38 61 L38 51 L50 43 L74 43 L87 52 L87 63 L76 69 L65 69 L65 77 L51 77 L51 71 L37 71 Z" fill="#d49a60"/>
+            <path d="M20 61 L20 53 L32 53 L32 60 L44 60 L44 70 L32 70 L32 77 L18 77 L18 70 L12 70 L12 63 Z" fill="#d49a60"/>
+            <!-- feet -->
+            <path d="M74 95 L85 95 L85 103 L71 103 L66 98 Z" fill="#87502c"/>
+            <path d="M109 94 L120 94 L120 102 L105 102 L101 98 Z" fill="#87502c"/>
+          </g>
+          <!-- face -->
+          <rect x="41" y="54" width="5" height="5" fill="#3f2412"/>
+          <rect x="25" y="61" width="7" height="4" fill="#3f2412"/>
+          <rect x="50" y="62" width="7" height="3" fill="#8b4e2e"/>
+          <rect x="77" y="73" width="8" height="4" fill="#e9a0a1"/>
+          <!-- hat stars -->
+          <g fill="#fff0a7">
+            <path d="M101 20 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 Z"/>
+            <rect x="119" y="30" width="5" height="5"/>
+            <rect x="86" y="31" width="4" height="4"/>
+          </g>
+          <!-- tiny wand -->
+          <path d="M145 67 L157 51" stroke="#69451e" stroke-width="5"/>
+          <path d="M154 43 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 Z" fill="#fff0a7" stroke="#563014" stroke-width="2"/>
+        </svg>
+      </div>
+      <p class="tagline">A cozy corner for whatever's on your mind.</p>
+      <div class="tiny-stars" aria-hidden="true">✦　✧　✦</div>
+    </section>
+
+    <section class="choices" aria-label="Explore Capycare">
+      <button class="choice" type="button" data-feature="anonymous">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <path d="M5 10 Q5 4 12 4 H36 Q43 4 43 11 V26 Q43 33 36 33 H24 L14 41 V33 H12 Q5 33 5 26 Z" fill="#ffcb62" stroke="#563014" stroke-width="4"/>
+            <path d="M24 26 Q24 20 31 20 H52 Q59 20 59 27 V40 Q59 47 52 47 H47 V54 L38 47 H31 Q24 47 24 40 Z" fill="#a7d9f7" stroke="#563014" stroke-width="4"/>
+            <rect x="14" y="15" width="5" height="5" fill="#563014"/><rect x="24" y="15" width="5" height="5" fill="#563014"/><rect x="34" y="15" width="5" height="5" fill="#563014"/>
+          </svg>
+        </span>
+        <span class="choice-label">Anonymous Chat</span>
+      </button>
+
+      <button class="choice" type="button" data-feature="ai">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <path d="M32 3 V11" stroke="#563014" stroke-width="4" stroke-linecap="square"/>
+            <circle cx="32" cy="5" r="4" fill="#ffcf58" stroke="#563014" stroke-width="3"/>
+            <rect x="9" y="12" width="46" height="35" rx="7" fill="#a8d9fb" stroke="#563014" stroke-width="4"/>
+            <rect x="19" y="23" width="6" height="7" fill="#563014"/><rect x="39" y="23" width="6" height="7" fill="#563014"/>
+            <path d="M23 36 Q32 43 41 36" stroke="#563014" stroke-width="4" stroke-linecap="square"/>
+            <rect x="3" y="23" width="6" height="14" fill="#7770d9" stroke="#563014" stroke-width="3"/>
+            <rect x="55" y="23" width="6" height="14" fill="#7770d9" stroke="#563014" stroke-width="3"/>
+          </svg>
+        </span>
+        <span class="choice-label">A.I Chat</span>
+      </button>
+
+      <button class="choice" type="button" data-feature="medical">
+        <span class="choice-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 58" fill="none">
+            <path d="M14 5 H42 L53 16 V51 H14 Z" fill="#fffaf0" stroke="#563014" stroke-width="4" stroke-linejoin="miter"/>
+            <path d="M42 5 V16 H53" stroke="#563014" stroke-width="4"/>
+            <rect x="27" y="14" width="6" height="18" fill="#ef6654"/><rect x="21" y="20" width="18" height="6" fill="#ef6654"/>
+            <rect x="21" y="38" width="25" height="3" fill="#563014"/><rect x="21" y="44" width="20" height="3" fill="#563014"/>
+          </svg>
+        </span>
+        <span class="choice-label">Professional<br>Medical Advice</span>
+      </button>
+    </section>
+
+    <p class="footer-note">Little steps count. <span>✦</span> You matter.</p>
+  </main>
+
+  <dialog id="featureDialog" aria-labelledby="dialogTitle">
+    <div class="modal-content">
+      <h2 id="dialogTitle">Coming soon!</h2>
+      <p id="dialogMessage">This part of Capycare is a demo placeholder.</p>
+      <div class="modal-actions"><button class="close-button" id="closeDialog" type="button">Got it!</button></div>
+      <div class="small-note">Prototype only: this page does not provide real chat, AI support, or medical care. Please don't enter private or sensitive information.</div>
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.getElementById('featureDialog');
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogMessage = document.getElementById('dialogMessage');
+    const content = {
+      anonymous: {
+        title: 'Anonymous Chat',
+        message: 'Peer chat is not connected yet. This demo does not send messages to other people or store a conversation.'
+      },
+      ai: {
+        title: 'A.I Chat',
+        message: 'The AI helper is not connected yet. In a real version, it should give careful, source-based information and make its limits clear.'
+      },
+      medical: {
+        title: 'Professional Medical Advice',
+        message: 'This demo cannot provide professional medical advice. A real version should link to trustworthy health information and qualified professionals.'
+      }
+    };
+    document.querySelectorAll('[data-feature]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const feature = content[button.dataset.feature];
+        dialogTitle.textContent = feature.title;
+        dialogMessage.textContent = feature.message;
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else window.alert(feature.title + '\n\n' + feature.message);
+      });
+    });
+    document.getElementById('closeDialog').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  </script>
+</body>
+</html>
