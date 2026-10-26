@@ -31,40 +31,7 @@
     }
     button { font: inherit; }
 
-    /* Decorative browser bar: this is part of the design, not the real browser controls. */
-    .browser-bar {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      min-height: 62px;
-      padding: 10px 20px;
-      background: #fff0cc;
-      border-bottom: 5px solid #d18a2a;
-      box-shadow: 0 4px 0 rgba(92, 49, 12, .08);
-    }
-    .window-dots { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
-    .dot { width: 15px; height: 15px; border-radius: 50%; display: inline-block; border: 2px solid rgba(76, 43, 18, .14); }
-    .dot.red { background: #ff6961; }
-    .dot.yellow { background: #ffc94f; }
-    .dot.green { background: #5abb68; }
-    .browser-arrow { color: #795026; font-size: 21px; font-weight: 900; line-height: 1; }
-    .address-pill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-      flex: 1;
-      height: 40px;
-      padding: 0 15px;
-      background: #fff9e9;
-      border: 2px solid #efce8a;
-      border-radius: 999px;
-      color: #63431f;
-      font-size: 14px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
+
     .lock { font-size: 14px; }
     .star { font-size: 18px; margin-left: auto; }
 
@@ -222,12 +189,7 @@
   </style>
 </head>
 <body>
-  <div class="browser-bar" aria-label="Decorative browser address bar">
-    <div class="window-dots" aria-hidden="true"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-    <span class="browser-arrow" aria-hidden="true">‹</span>
-    <span class="browser-arrow" aria-hidden="true">›</span>
-    <span class="browser-arrow" aria-hidden="true">⟳</span>
-    <div class="address-pill"><span class="lock" aria-hidden="true">🔒</span><span id="addressText">https://yourusername.github.io/capycare/</span><span class="star" aria-hidden="true">☆</span></div>
+ 
   </div>
 
   <main>
@@ -328,15 +290,15 @@
     const content = {
       anonymous: {
         title: 'Anonymous Chat',
-        message: 'Peer chat is not connected yet. This demo does not send messages to other people or store a conversation.'
+        message: 'Peer chat is not connected yet. This is just a demo, in reality, this button will lead to anonymous chatrooms, aswell as private dms.'
       },
       ai: {
         title: 'A.I Chat',
-        message: 'The AI helper is not connected yet. In a real version, it should give careful, source-based information and make its limits clear.'
+        message: 'The AI helper is not connected yet. In a real version, it would give careful, source-based information and make it clear that it is just an A.I that cant give accurate medical advice. The main use of the A.I will be to ask it quesitons you may be too ashamed to ask others, and it will make it easier for users to find resources on the website.'
       },
       medical: {
         title: 'Professional Medical Advice',
-        message: 'This demo cannot provide professional medical advice. A real version should link to trustworthy health information and qualified professionals.'
+        message: 'This demo cannot provide professional medical advice. A real version should link to trustworthy health information provided by qualified professionals, the names and other publishings of these medical professionals will also be provided, allowing people to find the help they need.'
       }
     };
     document.querySelectorAll('[data-feature]').forEach((button) => {
